@@ -576,10 +576,10 @@
       el("button", { class: "linkbtn", text: "Set copy picks", onclick: () => command("Copy picks", every === "off" ? "set copy_picks to off" : `set copy_picks to every ${every} at ${time.value}`) }))));
     // pushes
     t.append(group("Pushes",
-      el("div", { class: "grow2" }, el("span", { class: "k", text: "Telegram" }), el("span", { class: "v", text: a.pushes.connected ? "Connected" : "Not connected" })),
+      el("div", { class: "grow2" }, el("span", { class: "k", text: "Telegram" }), el("span", { class: "v", style: a.pushes.connected ? "color:#00d35a" : "", text: a.pushes.connected ? "Telegram connected" : "Not connected" })),
       el("div", { class: "setting" }, el("div", { class: "rng", style: "font-family:var(--textf);font-size:13px", text: a.pushes.note })),
       el("button", { class: "grow2", disabled: !a.pushes.connected, style: a.pushes.connected ? "" : "opacity:.4", onclick: () => command("Test push", "test push") },
-        el("span", { class: "k", text: "Send test push" }), el("span", { class: "v", text: a.pushes.connected ? "" : "after STEP 11" }))));
+        el("span", { class: "k", text: "Send test push" }), el("span", { class: "v", text: a.pushes.connected ? "copy command ›" : "after you press Start" }))));
     t.append(group("Grok Bot",
       el("div", { class: "grow2" }, el("span", { class: "k", text: "Watch in Grok Bot" }), el("span", { class: "v", text: "in the Grok Bot app" })),
       el("div", { class: "setting" }, el("div", { class: "rng", style: "font-family:var(--textf);font-size:13px", text: "Open this bot in the Grok Bot app to watch its computer live. The LIVE SCREEN card on Home shows the newest order screenshot every 15 s." }))));
