@@ -1,0 +1,44 @@
+name: pages
+# Deploys web/ (this branch) + the encrypted desk data (branch `data`, 1 force-pushed commit).
+# Custom Actions deploys have no 10-builds/hour soft limit. 1 running + 1 pending (newest).
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [publish]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: site
+      - uses: actions/checkout@v5
+        continue-on-error: true
+        with:
+          ref: data
+          path: data
+          fetch-depth: 1
+      - name: assemble
+        run: |
+          mkdir -p out
+          cp -r site/web/. out/
+          if [ -d data/d ]; then cp -r data/d out/d; fi
+          touch out/.nojekyll
+          ls -R out | head -50
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: out
+      - id: deploy
+        uses: actions/deploy-pages@v4

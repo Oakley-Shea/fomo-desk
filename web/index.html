@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>FOMO Desk</title>
+  <style>
+    body{font:15px -apple-system,system-ui,sans-serif;background:#0b0b0f;color:#eee;margin:0;padding:16px}
+    h1{font-size:20px;margin:0 0 8px} .muted{color:#888} .err{color:#ff6b9a}
+    table{border-collapse:collapse;margin-top:8px} td{padding:3px 10px 3px 0}
+    .big{font-size:32px;font-weight:700}
+  </style>
+</head>
+<body>
+  <h1>FOMO Desk <span id="mode" class="muted"></span></h1>
+  <div class="muted">Debug readout (STEP 8 pipe test). The real app is STEP 10.</div>
+  <div class="big" id="bal">…</div>
+  <div id="meta" class="muted"></div>
+  <table id="bots"></table>
+  <div id="err" class="err"></div>
+  <script src="app.js"></script>
+</body>
+</html>
