@@ -46,11 +46,15 @@
     return JSON.parse(new TextDecoder().decode(plain));
   }
 
+  // GitHub Pages edges sometimes serve an older copy for a while: never step backwards.
+  let newest = 0;
   const money = (v) => (v === null || v === undefined ? "—" : "$" + v.toFixed(2));
 
   async function tick() {
     try {
       const s = await load("state.json");
+      if (s.publishedAt < newest) return;  // stale CDN copy, keep the newer one on screen
+      newest = s.publishedAt;
       $("mode").textContent = "· " + s.mode;
       $("bal").textContent = money(s.balance);
       const age = Math.round(Date.now() / 1000 - s.publishedAt);
